@@ -1,0 +1,14 @@
+---
+- name: link Source
+  include_tasks: link Source.yml
+
+- name: template run_Ansible
+  ansible.builtin.template:
+    src: "{{ run_Ansible }}.j2"
+    dest: "{{ run_Ansible_path }}"
+    mode: '0755'
+
+- name: Run Ansible
+  ansible.builtin.shell: "distrobox enter {{ container_name_process }} -- sh {{ run_Ansible_path }}"
+  async: 3600
+  poll: 15

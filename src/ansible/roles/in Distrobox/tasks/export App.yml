@@ -1,0 +1,2 @@
+- name: distrobox export App
+  ansible.builtin.shell: "distrobox enter {{ container_name_process }} -- sh 'distrobox-export --app {{ project_name | lowercase }}'"

@@ -1,0 +1,10 @@
+- hosts: localhost #, fedora, ubuntu
+  vars:
+    foo: "bar"
+  vars_files:
+    - vars/Env.yml
+    - vars/debug.yml
+  roles:
+  - in Distrobox
+  - App
+  # - .test/start

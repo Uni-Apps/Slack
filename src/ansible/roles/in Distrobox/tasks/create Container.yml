@@ -1,0 +1,28 @@
+---
+- name: Distrobox container exists?
+  containers.podman.podman_container_info:
+    name: "{{ container_name_process }}"
+  register: container_status
+
+  # - debug:
+  #     msg: "Create Distrobox!"
+  #   when: container_status.containers | length == 0 or container_status.containers.0.Name != container_name_process
+
+- name: Create home directory
+  ansible.builtin.file:
+    path: "{{ container_home }}"
+    state: directory
+    mode: '0755'
+  when: separate_home_directory
+
+- name: create Container
+  ansible.builtin.shell: "distrobox create --pull --image {{ container_image }} --name {{ container_name_process }} --home {{ container_home }}" # with Home Dir
+# ansible.builtin.shell: "distrobox create --pull --image {{ container_image }} --name {{ container_name_process }}"
+  async: 3600
+  poll: 15
+  notify:
+  - Install Ansible
+  - Run Ansible
+  when: separate_home_directory and (container_status.containers | length == 0 or container_status.containers.0.Name != container_name_process)
+
+- meta: flush_handlers

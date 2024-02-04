@@ -1,0 +1,5 @@
+- name: Install Ansible
+  ansible.builtin.include_tasks: .handler/install Ansible.yml
+
+- name: Run Ansible
+  ansible.builtin.include_tasks: .handler/run Ansible.yml

@@ -1,0 +1,19 @@
+in_container: Distrobox
+
+container_name: "codeblocks"
+
+container_name_process: "codeblocks.distrobox"
+
+container_home: "{{ ansible_env.HOME }}/.uni/container/distrobox/{{ container_name }}"
+
+container_image: "ubuntu:latest"
+
+bin_dir: "{{ container_home }}/bin"
+
+install_Ansible: "install_Ansible.sh"
+
+install_Ansible_path: "{{ bin_dir }}/install-Ansible.sh"
+
+run_Ansible: "run_Ansible.sh"
+
+run_Ansible_path: "{{ bin_dir }}/{{ run_Ansible }}"

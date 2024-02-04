@@ -1,0 +1,12 @@
+---
+- name: Create Container
+  include_tasks: create Container.yml
+  when: in_container and ansible_env.container is not defined
+
+- name: debug( Run Ansible )
+  ansible.builtin.include_tasks: .handler/run Ansible.yml
+  when: (in_container and ansible_env.container is not defined) and rerun_ansible_in_container
+
+- name: end host here, if Outside container
+  meta: end_host
+  when: ansible_env.container is not defined
